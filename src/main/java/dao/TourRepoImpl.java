@@ -38,9 +38,9 @@ public class TourRepoImpl implements CommonRepo<Tour> {
              PreparedStatement tourStatement = connection.prepareStatement(
                      "INSERT INTO " + TourRepoImpl.TABLE_NAME + " (name, country_id, reiew_id, hotel_id) VALUES (?,?,?,?)")) {
             tourStatement.setString(1, tour.getName());
-            tourStatement.setLong(2, tour.getCountry_id());
-            tourStatement.setLong(3, tour.getReview_id());
-            tourStatement.setLong(4, tour.getHotel_id());
+            tourStatement.setLong(2, tour.getCountryId());
+            tourStatement.setLong(3, tour.getReviewId());
+            tourStatement.setLong(4, tour.getHotelId());
             tourStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -85,9 +85,9 @@ public class TourRepoImpl implements CommonRepo<Tour> {
              PreparedStatement statement = connection.prepareStatement(
                      "UPDATE " + TourRepoImpl.TABLE_NAME + " SET name = (?), country_id = (?), review_id = (?), hotel_id = (?) WHERE id = (?)")) {
             statement.setString(1, tour.getName());
-            statement.setLong(2, tour.getCountry_id());
-            statement.setLong(3, tour.getReview_id());
-            statement.setLong(4, tour.getHotel_id());
+            statement.setLong(2, tour.getCountryId());
+            statement.setLong(3, tour.getReviewId());
+            statement.setLong(4, tour.getHotelId());
             statement.setLong(5, tour.getTourId());
             statement.executeUpdate();
         } catch (SQLException e) {

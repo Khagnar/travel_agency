@@ -6,23 +6,23 @@ public class Tour {
 
     private long tourId;
     private String name;
-    private long country_id;
-    private long review_id;
-    private long hotel_id;
+    private long countryId;
+    private long reviewId;
+    private long hotelId;
 
-    public Tour(long tourId, String name, long country_id, long review_id, long hotel_id) {
+    public Tour(long tourId, String name, long countryId, long reviewId, long hotelId) {
         this.tourId = tourId;
         this.name = name;
-        this.country_id = country_id;
-        this.review_id = review_id;
-        this.hotel_id = hotel_id;
+        this.countryId = countryId;
+        this.reviewId = reviewId;
+        this.hotelId = hotelId;
     }
 
-    public Tour(String name, long country_id, long review_id, long hotel_id) {
+    public Tour(String name, long countryId, long reviewId, long hotelId) {
         this.name = name;
-        this.country_id = country_id;
-        this.review_id = review_id;
-        this.hotel_id = hotel_id;
+        this.countryId = countryId;
+        this.reviewId = reviewId;
+        this.hotelId = hotelId;
     }
 
     public Tour() {
@@ -44,28 +44,28 @@ public class Tour {
         this.name = name;
     }
 
-    public long getCountry_id() {
-        return country_id;
+    public long getCountryId() {
+        return countryId;
     }
 
-    public void setCountry_id(long country_id) {
-        this.country_id = country_id;
+    public void setCountryId(long countryId) {
+        this.countryId = countryId;
     }
 
-    public long getReview_id() {
-        return review_id;
+    public long getReviewId() {
+        return reviewId;
     }
 
-    public void setReview_id(long review_id) {
-        this.review_id = review_id;
+    public void setReviewId(long reviewId) {
+        this.reviewId = reviewId;
     }
 
-    public long getHotel_id() {
-        return hotel_id;
+    public long getHotelId() {
+        return hotelId;
     }
 
-    public void setHotel_id(long hotel_id) {
-        this.hotel_id = hotel_id;
+    public void setHotelId(long hotelId) {
+        this.hotelId = hotelId;
     }
 
     @Override
@@ -74,15 +74,15 @@ public class Tour {
         if (o == null || getClass() != o.getClass()) return false;
         Tour tour = (Tour) o;
         return tourId == tour.tourId &&
-                country_id == tour.country_id &&
-                review_id == tour.review_id &&
-                hotel_id == tour.hotel_id &&
+                countryId == tour.countryId &&
+                reviewId == tour.reviewId &&
+                hotelId == tour.hotelId &&
                 Objects.equals(name, tour.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tourId, name, country_id, review_id, hotel_id);
+        return Objects.hash(tourId, name, countryId, reviewId, hotelId);
     }
 
     @Override
@@ -90,9 +90,9 @@ public class Tour {
         return "Tour{" +
                 "tourId=" + tourId +
                 ", name='" + name + '\'' +
-                ", country_id=" + country_id +
-                ", review_id=" + review_id +
-                ", hotel_id=" + hotel_id +
+                ", countryId=" + countryId +
+                ", reviewId=" + reviewId +
+                ", hotelId=" + hotelId +
                 '}';
     }
 }

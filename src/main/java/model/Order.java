@@ -2,25 +2,24 @@ package model;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.TimeZone;
 
 public class Order {
 
     private long orderId;
-    private long customer_id;
-    private long tour_id;
+    private long customerId;
+    private long tourId;
     private Timestamp date;
 
-    public Order(long orderId, long customer_id, long tour_id, Timestamp date) {
+    public Order(long orderId, long customerId, long tourId, Timestamp date) {
         this.orderId = orderId;
-        this.customer_id = customer_id;
-        this.tour_id = tour_id;
+        this.customerId = customerId;
+        this.tourId = tourId;
         this.date = date;
     }
 
-    public Order(long customer_id, long tour_id, Timestamp date) {
-        this.customer_id = customer_id;
-        this.tour_id = tour_id;
+    public Order(long customerId, long tourId, Timestamp date) {
+        this.customerId = customerId;
+        this.tourId = tourId;
         this.date = date;
     }
 
@@ -35,20 +34,20 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public long getCustomer_id() {
-        return customer_id;
+    public long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(long customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
-    public long getTour_id() {
-        return tour_id;
+    public long getTourId() {
+        return tourId;
     }
 
-    public void setTour_id(long tour_id) {
-        this.tour_id = tour_id;
+    public void setTourId(long tourId) {
+        this.tourId = tourId;
     }
 
     public Timestamp getDate() {
@@ -65,22 +64,22 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
         return orderId == order.orderId &&
-                customer_id == order.customer_id &&
-                tour_id == order.tour_id &&
+                customerId == order.customerId &&
+                tourId == order.tourId &&
                 Objects.equals(date, order.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, customer_id, tour_id, date);
+        return Objects.hash(orderId, customerId, tourId, date);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", customer_id=" + customer_id +
-                ", tour_id=" + tour_id +
+                ", customerId=" + customerId +
+                ", tourId=" + tourId +
                 ", date=" + date +
                 '}';
     }

@@ -31,9 +31,9 @@ public class TourService {
         Tour update = tourRepo.getById(id);
         update.setTourId(id);
         update.setName(name);
-        update.setCountry_id(country_id);
-        update.setReview_id(review_id);
-        update.setHotel_id(hotel_id);
+        update.setCountryId(country_id);
+        update.setReviewId(review_id);
+        update.setHotelId(hotel_id);
         tourRepo.update(update);
         System.out.println("Tour was changed!");
     }

@@ -10,7 +10,8 @@ public class OrderService {
     private OrderRepoImpl orderRepo = new OrderRepoImpl();
 
     public void getOrderById(Long id) {
-        System.out.println("| " + id + " | " + orderRepo.getById(id).getCustomer_id() + " | " + orderRepo.getById(id).getTour_id()+ " |");
+        System.out.println("| " + id + " | " + orderRepo.getById(id).getCustomerId() +
+                 " | " + orderRepo.getById(id).getTourId()+ " |");
     }
 
     public void getAllOrders() {
@@ -32,8 +33,8 @@ public class OrderService {
     public void setOrder(Long id, long customer_id, long tour_id, Timestamp date) {
         Order update = orderRepo.getById(id);
         update.setOrderId(id);
-        update.setCustomer_id(customer_id);
-        update.setTour_id(tour_id);
+        update.setCustomerId(customer_id);
+        update.setTourId(tour_id);
         update.setDate(date);
         orderRepo.update(update);
         System.out.println("Order was changed!");

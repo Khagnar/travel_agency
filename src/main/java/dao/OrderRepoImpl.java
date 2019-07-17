@@ -36,8 +36,8 @@ public class OrderRepoImpl implements CommonRepo<Order> {
         try (Connection connection = DBCPDataSource.getConnection();
              PreparedStatement OrderStatement = connection.prepareStatement(
                      "INSERT INTO " + OrderRepoImpl.TABLE_NAME + " (customer_id, tour_id, date) VALUES (?,?,?)")) {
-            OrderStatement.setLong(1, order.getCustomer_id());
-            OrderStatement.setLong(2, order.getTour_id());
+            OrderStatement.setLong(1, order.getCustomerId());
+            OrderStatement.setLong(2, order.getTourId());
             OrderStatement.setTimestamp(3, order.getDate());
             OrderStatement.executeUpdate();
         }
@@ -81,8 +81,8 @@ public class OrderRepoImpl implements CommonRepo<Order> {
         try (Connection connection = DBCPDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "UPDATE " + OrderRepoImpl.TABLE_NAME + " SET customer_id = (?), tour_id = (?), date = (?) WHERE id = (?)")) {
-            statement.setLong(1, order.getCustomer_id());
-            statement.setLong(2, order.getTour_id());
+            statement.setLong(1, order.getCustomerId());
+            statement.setLong(2, order.getTourId());
             statement.setTimestamp(3, order.getDate());
             statement.setLong(4, order.getOrderId());
             statement.executeUpdate();
