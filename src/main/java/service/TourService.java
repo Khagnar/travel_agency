@@ -17,7 +17,7 @@ public class TourService {
         }
     }
 
-    public void addCountry(Tour tour) {
+    public void addTour(Tour tour) {
         tourRepo.add(tour);
         System.out.println("Tour " + tour.getName() + " was added!" );
     }
