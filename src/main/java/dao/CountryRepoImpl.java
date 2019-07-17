@@ -2,17 +2,16 @@ package dao;
 
 import model.Country;
 import util.DBCPDataSource;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryRepoImpl implements CountryRepo {
+public class CountryRepoImpl implements CommonRepo<Country> {
 
     private static final String TABLE_NAME = "public.\"Country\"";
 
     @Override
-    public List<Country> getAllCountries() {
+    public List<Country> getAll() {
         List<Country> list = new ArrayList<>();
         try (Connection connection = DBCPDataSource.getConnection();
              Statement statement = connection.createStatement();
@@ -31,7 +30,7 @@ public class CountryRepoImpl implements CountryRepo {
     }
 
     @Override
-    public void addCountry(Country country) {
+    public void add(Country country) {
         try (Connection connection = DBCPDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO " + CountryRepoImpl.TABLE_NAME + " (name) VALUES (?)")) {
@@ -44,7 +43,7 @@ public class CountryRepoImpl implements CountryRepo {
     }
 
     @Override
-    public void deleteCountry(Long id) {
+    public void delete(Long id) {
         try (Connection connection = DBCPDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM " + CountryRepoImpl.TABLE_NAME + "WHERE id = " + id)) {
@@ -55,7 +54,7 @@ public class CountryRepoImpl implements CountryRepo {
     }
 
     @Override
-    public Country getCountryId(Long id) {
+    public Country getById(Long id) {
         Country country = null;
         try (Connection connection = DBCPDataSource.getConnection();
              Statement statement = connection.createStatement();
@@ -73,7 +72,7 @@ public class CountryRepoImpl implements CountryRepo {
     }
 
     @Override
-    public void saveCountry(Country country) {
+    public void update(Country country) {
         try (Connection connection = DBCPDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                 "UPDATE " + CountryRepoImpl.TABLE_NAME + " SET name = (?) WHERE id = (?)")) {

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Customer {
 
     private long customerId;
@@ -12,6 +14,9 @@ public class Customer {
     public Customer(long customerId, String name) {
         this.customerId = customerId;
         this.name = name;
+    }
+
+    public Customer() {
     }
 
     public long getCustomerId() {
@@ -28,5 +33,27 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return customerId == customer.customerId &&
+                Objects.equals(name, customer.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerId, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

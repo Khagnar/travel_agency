@@ -1,14 +1,37 @@
 package service;
 
+import dao.CountryRepoImpl;
 import model.Country;
 
-import java.util.List;
+public class CountryService {
 
-public interface CountryService {
+    private CountryRepoImpl countryRepo = new CountryRepoImpl();
 
-    List<Country> getAllCountries();
-    void addCountry(Country country);
-    void deleteCountry(Long id);
-    void updateCountry(Long id, String name);
-    Country getCountryId(Long id);
+    public void getCountryById(Long id) {
+        System.out.println("| " + id + " | " + countryRepo.getById(id).getName() + " |");
+    }
+
+    public void getAllCountries() {
+        for (Country c : countryRepo.getAll()) {
+            getCountryById(c.getCountryId());
+        }
+    }
+
+    public void addCountry(Country country) {
+        countryRepo.add(country);
+        System.out.println("Country " + country.getName() + " was added!" );
+    }
+
+    public void deleteCountry(Long id) {
+        System.out.println("Country " + countryRepo.getById(id).getName() + "was deleted!");
+        countryRepo.delete(id);
+    }
+
+    public void setCountry(Long id, String name) {
+        Country update = countryRepo.getById(id);
+        update.setCountryId(id);
+        update.setName(name);
+        countryRepo.update(update);
+        System.out.println("Country was changed!");
+    }
 }
