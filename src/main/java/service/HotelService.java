@@ -23,8 +23,15 @@ public class HotelService {
     }
 
     public void deleteHotel(Long id) {
-        System.out.println("Hotel " + hotelRepo.getById(id).getName() + "was deleted!");
-        hotelRepo.delete(id);
+        int count = 0;
+        for (Hotel h : hotelRepo.getAll()) {
+            if (id == h.getHotelId()) {
+                count++;
+                System.out.println("Hotel " + hotelRepo.getById(id).getName() + " was deleted!");
+                hotelRepo.delete(id);
+            }
+        }
+        if (count == 0) System.out.println("This id doesn't exist. Please choose a valid id");
     }
 
     public void setHotel(Long id, String name) {

@@ -26,8 +26,15 @@ public class OrderService {
     }
 
     public void deleteOrder(Long id) {
-        System.out.println("Order " + orderRepo.getById(id) + "was deleted!");
-        orderRepo.delete(id);
+        int count = 0;
+        for (Order o : orderRepo.getAll()) {
+            if (id == o.getOrderId()) {
+                count++;
+                System.out.println("Country " + orderRepo.getById(id) + " was deleted!");
+                orderRepo.delete(id);
+            }
+        }
+        if (count == 0) System.out.println("This id doesn't exist. Please choose a valid id");
     }
 
     public void setOrder(Long id, long customer_id, long tour_id, Timestamp date) {

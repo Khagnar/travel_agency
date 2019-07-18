@@ -23,8 +23,15 @@ public class CountryService {
     }
 
     public void deleteCountry(Long id) {
-        System.out.println("Country " + countryRepo.getById(id).getName() + "was deleted!");
-        countryRepo.delete(id);
+        int count = 0;
+        for (Country c : countryRepo.getAll()) {
+            if (id == c.getCountryId()) {
+                count++;
+                System.out.println("Country " + countryRepo.getById(id).getName() + " was deleted!");
+                countryRepo.delete(id);
+            }
+        }
+        if (count == 0) System.out.println("This id doesn't exist. Please choose a valid id");
     }
 
     public void setCountry(Long id, String name) {

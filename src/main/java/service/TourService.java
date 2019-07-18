@@ -23,8 +23,15 @@ public class TourService {
     }
 
     public void deleteTour(Long id) {
-        System.out.println("Tour " + tourRepo.getById(id).getName() + "was deleted!");
-        tourRepo.delete(id);
+        int count = 0;
+        for (Tour t : tourRepo.getAll()) {
+            if (id == t.getCountryId()) {
+                count++;
+                System.out.println("Tour " + tourRepo.getById(id).getName() + " was deleted!");
+                tourRepo.delete(id);
+            }
+        }
+        if (count == 0) System.out.println("This id doesn't exist. Please choose a valid id");
     }
 
     public void setTour(Long id, String name, long country_id, long review_id, long hotel_id) {

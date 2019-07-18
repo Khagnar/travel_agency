@@ -22,8 +22,15 @@ public class ReviewService {
     }
 
     public void deleteReview(Long id) {
-        System.out.println("Review " + reviewRepo.getById(id).getDescription() + "was deleted!");
-        reviewRepo.delete(id);
+        int count = 0;
+        for (Review r : reviewRepo.getAll()) {
+            if (id == r.getReviewId()) {
+                count++;
+                System.out.println("Review " + reviewRepo.getById(id).getDescription() + " was deleted!");
+                reviewRepo.delete(id);
+            }
+        }
+        if (count == 0) System.out.println("This id doesn't exist. Please choose a valid id");
     }
 
     public void setReview(Long id, String description) {

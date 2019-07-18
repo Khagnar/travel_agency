@@ -22,8 +22,15 @@ public class CustomerService {
     }
 
     public void deleteCustomer(Long id) {
-        System.out.println("Customer " + customerRepo.getById(id).getName() + "was deleted!");
-        customerRepo.delete(id);
+        int count = 0;
+        for (Customer c : customerRepo.getAll()) {
+            if (id == c.getCustomerId()) {
+                count++;
+                System.out.println("Customer " + customerRepo.getById(id).getName() + " was deleted!");
+                customerRepo.delete(id);
+            }
+        }
+        if (count == 0) System.out.println("This id doesn't exist. Please choose a valid id");
     }
 
     public void setCustomer(Long id, String name) {
