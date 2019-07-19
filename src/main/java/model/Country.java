@@ -1,10 +1,11 @@
 package model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "public.\"Country\"")
+@Table(name = "Country")
 public class Country {
 
     @Id
@@ -13,6 +14,9 @@ public class Country {
     private long countryId;
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "country",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tour> tours;
 
     public Country(String name) {
         this.name = name;
@@ -31,6 +35,14 @@ public class Country {
 
     public long getCountryId() {
         return countryId;
+    }
+
+    public List<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(List<Tour> tours) {
+        this.tours = tours;
     }
 
     @Override

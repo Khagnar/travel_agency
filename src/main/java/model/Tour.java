@@ -19,6 +19,10 @@ public class Tour {
     @Column(name = "hotel_id")
     private long hotelId;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
+    private Country country;
+
     public Tour(String name, long countryId, long reviewId, long hotelId) {
         this.name = name;
         this.countryId = countryId;
@@ -63,6 +67,14 @@ public class Tour {
 
     public void setHotelId(long hotelId) {
         this.hotelId = hotelId;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Override

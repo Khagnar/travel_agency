@@ -25,7 +25,7 @@ public class CountryRepoImpl implements CommonRepo<Country> {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
-            list = session.createQuery("FROM public.\"Country\"").list();
+            list = session.createQuery("FROM Country").list();
         }
         return list;
     }
