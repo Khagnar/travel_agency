@@ -19,7 +19,7 @@ public class Tour {
     @Column(name = "hotel_id")
     private long hotelId;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
