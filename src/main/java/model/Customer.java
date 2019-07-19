@@ -1,8 +1,16 @@
 package model;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name = "Customer")
 public class Customer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long customerId;
+    @Column(name = "name")
     private String name;
 
     public Customer(String name) {
@@ -14,12 +22,11 @@ public class Customer {
         this.name = name;
     }
 
-    public long getCustomerId() {
-        return customerId;
+    public Customer() {
     }
 
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
+    public long getCustomerId() {
+        return customerId;
     }
 
     public String getName() {
@@ -28,5 +35,27 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return customerId == customer.customerId &&
+                Objects.equals(name, customer.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerId, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
