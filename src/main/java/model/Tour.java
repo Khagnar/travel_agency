@@ -1,42 +1,36 @@
 package model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Tour")
+@Table(name = "tour")
 public class Tour {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long tourId;
-    @Column(name = "name")
     private String name;
-    @Column(name = "country_id")
-    private long countryId;
-    @Column(name = "review_id")
-    private long reviewId;
-    @Column(name = "hotel_id")
-    private long hotelId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id")
     private Country country;
-
-    public Tour(String name, long countryId, long reviewId, long hotelId) {
-        this.name = name;
-        this.countryId = countryId;
-        this.reviewId = reviewId;
-        this.hotelId = hotelId;
-    }
+    private Hotel hotel;
+    private Review review;
+    private List<Order> orders;
 
     public Tour() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tour_seq")
+    @SequenceGenerator(name = "tour_seq", sequenceName = "tour_id_seq", allocationSize = 1, initialValue = 1)
+    @Column(name = "id")
     public long getTourId() {
         return tourId;
     }
 
+    public void setTourId(long tourId) {
+        this.tourId = tourId;
+    }
+
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -45,30 +39,8 @@ public class Tour {
         this.name = name;
     }
 
-    public long getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(long countryId) {
-        this.countryId = countryId;
-    }
-
-    public long getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(long reviewId) {
-        this.reviewId = reviewId;
-    }
-
-    public long getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(long hotelId) {
-        this.hotelId = hotelId;
-    }
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "country_id")
     public Country getCountry() {
         return country;
     }
@@ -77,21 +49,50 @@ public class Tour {
         this.country = country;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "hotel_id")
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "review_id")
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    @OneToMany(mappedBy = "tour",cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tour tour = (Tour) o;
         return tourId == tour.tourId &&
-                countryId == tour.countryId &&
-                reviewId == tour.reviewId &&
-                hotelId == tour.hotelId &&
-                Objects.equals(name, tour.name);
+                name.equals(tour.name) &&
+                country.equals(tour.country) &&
+                hotel.equals(tour.hotel) &&
+                review.equals(tour.review);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tourId, name, countryId, reviewId, hotelId);
+        return Objects.hash(tourId, name, country, hotel, review);
     }
 
     @Override
@@ -99,9 +100,9 @@ public class Tour {
         return "Tour{" +
                 "tourId=" + tourId +
                 ", name='" + name + '\'' +
-                ", countryId=" + countryId +
-                ", reviewId=" + reviewId +
-                ", hotelId=" + hotelId +
+                ", country=" + country +
+                ", hotel=" + hotel +
+                ", review=" + review +
                 '}';
     }
 }

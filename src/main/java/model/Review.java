@@ -1,29 +1,33 @@
 package model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Review")
 public class Review {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long reviewId;
-    @Column(name = "description")
     private String description;
-
-    public Review(String description) {
-        this.description = description;
-    }
+    private List<Tour> tours;
 
     public Review() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_seq")
+    @SequenceGenerator(name = "review_seq", sequenceName = "review_id_seq",  allocationSize = 1, initialValue = 1 )
+    @Column(name = "id")
     public long getReviewId() {
         return reviewId;
     }
 
+    public void setReviewId(long reviewId) {
+        this.reviewId = reviewId;
+    }
+
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -32,13 +36,22 @@ public class Review {
         this.description = description;
     }
 
+    @OneToMany(mappedBy = "review",cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(List<Tour> tours) {
+        this.tours = tours;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Review review = (Review) o;
         return reviewId == review.reviewId &&
-                Objects.equals(description, review.description);
+                description.equals(review.description);
     }
 
     @Override

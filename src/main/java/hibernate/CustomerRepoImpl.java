@@ -1,64 +1,64 @@
 package hibernate;
 
-import model.Country;
+import model.Customer;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateSessionFactory;
 import java.util.List;
 
-public class CountryRepoImpl implements CommonRepo<Country> {
-
+public class CustomerRepoImpl implements CommonRepo<Customer> {
+    
     @Override
-    public Country getById(Long id) {
-        Country country;
+    public Customer getById(Long id) {
+        Customer customer;
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
-            country = session.get(Country.class, id);
+            customer = session.get(Customer.class, id);
         }
-        return country;
+        return customer;
     }
 
     @Override
-    public List<Country> getAll() {
+    public List<Customer> getAll() {
         List list;
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
-            list = session.createQuery("FROM model.Country").list();
+            list = session.createQuery("FROM model.Customer").list();
         }
         return list;
     }
 
     @Override
-    public void add(Country country) {
+    public void add(Customer Customer) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.save(country);
+            session.save(Customer);
             transaction.commit();
         }
     }
 
     @Override
-    public void delete(Country country) {
+    public void delete(Customer customer) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.delete(country);
+            session.delete(customer);
             transaction.commit();
         }
     }
 
     @Override
-    public void update(Country country) {
+    public void update(Customer customer) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.update(country);
+            session.update(customer);
             transaction.commit();
         }
     }

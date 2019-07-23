@@ -1,64 +1,64 @@
 package hibernate;
 
-import model.Country;
+import model.Hotel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateSessionFactory;
 import java.util.List;
 
-public class CountryRepoImpl implements CommonRepo<Country> {
+public class HotelRepoImpl implements CommonRepo<Hotel> {
 
     @Override
-    public Country getById(Long id) {
-        Country country;
+    public Hotel getById(Long id) {
+        Hotel hotel;
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
-            country = session.get(Country.class, id);
+            hotel = session.get(Hotel.class, id);
         }
-        return country;
+        return hotel;
     }
 
     @Override
-    public List<Country> getAll() {
+    public List<Hotel> getAll() {
         List list;
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
-            list = session.createQuery("FROM model.Country").list();
+            list = session.createQuery("FROM model.Hotel").list();
         }
         return list;
     }
 
     @Override
-    public void add(Country country) {
+    public void add(Hotel hotel) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.save(country);
+            session.save(hotel);
             transaction.commit();
         }
     }
 
     @Override
-    public void delete(Country country) {
+    public void delete(Hotel hotel) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.delete(country);
+            session.delete(hotel);
             transaction.commit();
         }
     }
 
     @Override
-    public void update(Country country) {
+    public void update(Hotel hotel) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.update(country);
+            session.update(hotel);
             transaction.commit();
         }
     }

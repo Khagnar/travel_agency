@@ -5,48 +5,30 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "public.order")
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderId;
-    @Column(name = "customer_id")
-    private long customerId;
-    @Column(name = "tour_id")
-    private long tourId;
-    @Column(name = "date")
     private Timestamp date;
-
-    public Order(long customerId, long tourId, Timestamp date) {
-        this.customerId = customerId;
-        this.tourId = tourId;
-        this.date = date;
-    }
+    private Customer customer;
+    private Tour tour;
 
     public Order() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
+    @SequenceGenerator(name = "order_seq", sequenceName = "order_id_seq",  allocationSize = 1, initialValue = 1 )
+    @Column(name = "id")
     public long getOrderId() {
         return orderId;
     }
 
-    public long getCustomerId() {
-        return customerId;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
-    }
-
-    public long getTourId() {
-        return tourId;
-    }
-
-    public void setTourId(long tourId) {
-        this.tourId = tourId;
-    }
-
+    @Column(name = "date")
     public Timestamp getDate() {
         return date;
     }
@@ -55,29 +37,49 @@ public class Order {
         this.date = date;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id")
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "tour_id")
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
         return orderId == order.orderId &&
-                customerId == order.customerId &&
-                tourId == order.tourId &&
-                Objects.equals(date, order.date);
+                date.equals(order.date) &&
+                customer.equals(order.customer) &&
+                tour.equals(order.tour);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, customerId, tourId, date);
+        return Objects.hash(orderId, date, customer, tour);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", customerId=" + customerId +
-                ", tourId=" + tourId +
                 ", date=" + date +
+                ", customer=" + customer +
+                ", tour=" + tour +
                 '}';
     }
 }

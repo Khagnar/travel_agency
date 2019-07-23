@@ -1,64 +1,64 @@
 package hibernate;
 
-import model.Country;
+import model.Tour;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateSessionFactory;
+
 import java.util.List;
 
-public class CountryRepoImpl implements CommonRepo<Country> {
-
+public class TourRepoImpl implements CommonRepo<Tour> {
     @Override
-    public Country getById(Long id) {
-        Country country;
+    public Tour getById(Long id) {
+        Tour tour;
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
-            country = session.get(Country.class, id);
+            tour = session.get(Tour.class, id);
         }
-        return country;
+        return tour;
     }
 
     @Override
-    public List<Country> getAll() {
+    public List<Tour> getAll() {
         List list;
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
-            list = session.createQuery("FROM model.Country").list();
+            list = session.createQuery("FROM model.Tour").list();
         }
         return list;
     }
 
     @Override
-    public void add(Country country) {
+    public void add(Tour tour) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.save(country);
+            session.save(tour);
             transaction.commit();
         }
     }
 
     @Override
-    public void delete(Country country) {
+    public void delete(Tour tour) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.delete(country);
+            session.delete(tour);
             transaction.commit();
         }
     }
 
     @Override
-    public void update(Country country) {
+    public void update(Tour tour) {
         try (Session session = HibernateSessionFactory
                 .getSessionFactory()
                 .openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.update(country);
+            session.update(tour);
             transaction.commit();
         }
     }

@@ -5,26 +5,29 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Country")
+@Table(name = "country")
 public class Country {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long countryId;
-    @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "country",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tour> tours;
-
-    public Country(String name) {
-        this.name = name;
-    }
 
     public Country() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "country_seq")
+    @SequenceGenerator(name = "country_seq", sequenceName = "country_id_seq",  allocationSize = 1, initialValue = 1 )
+    @Column(name = "id")
+    public long getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(long countryId) {
+        this.countryId = countryId;
+    }
+
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -33,10 +36,7 @@ public class Country {
         this.name = name;
     }
 
-    public long getCountryId() {
-        return countryId;
-    }
-
+    @OneToMany(mappedBy = "country",cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Tour> getTours() {
         return tours;
     }
@@ -51,7 +51,7 @@ public class Country {
         if (o == null || getClass() != o.getClass()) return false;
         Country country = (Country) o;
         return countryId == country.countryId &&
-                Objects.equals(name, country.name);
+                name.equals(country.name);
     }
 
     @Override
