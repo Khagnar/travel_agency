@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.Tour" table="tour">
+        <id name="tourId" type="java.lang.Long" column="id">
+            <generator class="identity">
+                <param name="sequence">tour_id_seq</param>
+            </generator>
+        </id>
+        <property name="name" type="java.lang.String" column="name"/>
+        <many-to-one name="country" class="model.Country" column="country_id" not-null="true" cascade="all"/>
+        <many-to-one name="review" class="model.Review" column="review_id" not-null="true" cascade="all"/>
+        <many-to-one name="hotel" class="model.Hotel" column="hotel_id" not-null="true" cascade="all"/>
+        <set name="orders" table="order" lazy="true" fetch="select" cascade="all">
+            <key>
+                <column name="tour_id" not-null="true"/>
+            </key>
+            <one-to-many class="model.Order"/>
+        </set>
+    </class>
+</hibernate-mapping>

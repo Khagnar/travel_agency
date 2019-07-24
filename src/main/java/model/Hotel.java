@@ -1,24 +1,17 @@
 package model;
 
-import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-@Entity
-@Table(name = "hotel")
 public class Hotel {
 
     private long hotelId;
     private String name;
-    private List<Tour> tours;
+    private Set<Tour> tours;
 
     public Hotel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hotel_seq")
-    @SequenceGenerator(name = "hotel_seq", sequenceName = "hotel_id_seq",  allocationSize = 1, initialValue = 1 )
-    @Column(name = "id")
     public long getHotelId() {
         return hotelId;
     }
@@ -27,7 +20,6 @@ public class Hotel {
         this.hotelId = hotelId;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -36,12 +28,11 @@ public class Hotel {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Tour> getTours() {
+    public Set<Tour> getTours() {
         return tours;
     }
 
-    public void setTours(List<Tour> tours) {
+    public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
 

@@ -1,11 +1,8 @@
 package model;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-@Entity
-@Table(name = "public.order")
 public class Order {
 
     private long orderId;
@@ -16,10 +13,6 @@ public class Order {
     public Order() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
-    @SequenceGenerator(name = "order_seq", sequenceName = "order_id_seq",  allocationSize = 1, initialValue = 1 )
-    @Column(name = "id")
     public long getOrderId() {
         return orderId;
     }
@@ -28,7 +21,6 @@ public class Order {
         this.orderId = orderId;
     }
 
-    @Column(name = "date")
     public Timestamp getDate() {
         return date;
     }
@@ -37,8 +29,6 @@ public class Order {
         this.date = date;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id")
     public Customer getCustomer() {
         return customer;
     }
@@ -47,8 +37,6 @@ public class Order {
         this.customer = customer;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tour_id")
     public Tour getTour() {
         return tour;
     }

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.Order" table="order">
+        <id name="orderId" type="java.lang.Long" column="id">
+            <generator class="identity">
+                <param name="sequence">order_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="customer" class="model.Customer" column="customer_id" not-null="true" cascade="all"/>
+        <many-to-one name="tour" class="model.Tour" column="tour_id" not-null="true" cascade="all"/>
+    </class>
+</hibernate-mapping>

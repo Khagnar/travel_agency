@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.Country" table="country">
+        <id name="countryId" type="java.lang.Long" column="id">
+            <generator class="identity">
+                <param name="sequence">country_id_seq</param>
+            </generator>
+        </id>
+        <property name="name" type="java.lang.String" column="name"/>
+        <set name="tours" table="tour" lazy="true" fetch="select" cascade="all">
+            <key>
+                <column name="country_id" not-null="true"/>
+            </key>
+            <one-to-many class="model.Tour"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,24 +1,18 @@
 package model;
 
-import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-@Entity
-@Table(name = "customer")
+
 public class Customer {
 
     private long customerId;
     private String name;
-    private List<Order> orders;
+    private Set<Order> orders;
 
     public Customer() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
-    @SequenceGenerator(name = "customer_seq", sequenceName = "customer_id_seq",  allocationSize = 1, initialValue = 1 )
-    @Column(name = "id")
     public long getCustomerId() {
         return customerId;
     }
@@ -27,7 +21,6 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -36,12 +29,11 @@ public class Customer {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 

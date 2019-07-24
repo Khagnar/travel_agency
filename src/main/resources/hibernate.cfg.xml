@@ -12,5 +12,11 @@
         <property name="show_sql">true</property>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+        <mapping resource="mapping/country.hbm.xml"/>
+        <mapping resource="mapping/tour.xbm.xml"/>
+        <mapping resource="mapping/customer.hbm.xml"/>
+        <mapping resource="mapping/review.hbm.xml"/>
+        <mapping resource="mapping/hotel.xbm.xml"/>
+        <mapping resource="mapping/order.xbm.xml"/>
     </session-factory>
 </hibernate-configuration>

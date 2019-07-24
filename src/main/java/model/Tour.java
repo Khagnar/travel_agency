@@ -1,11 +1,8 @@
 package model;
 
-import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-@Entity
-@Table(name = "tour")
 public class Tour {
 
     private long tourId;
@@ -13,15 +10,11 @@ public class Tour {
     private Country country;
     private Hotel hotel;
     private Review review;
-    private List<Order> orders;
+    private Set<Order> orders;
 
     public Tour() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tour_seq")
-    @SequenceGenerator(name = "tour_seq", sequenceName = "tour_id_seq", allocationSize = 1, initialValue = 1)
-    @Column(name = "id")
     public long getTourId() {
         return tourId;
     }
@@ -30,7 +23,6 @@ public class Tour {
         this.tourId = tourId;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -39,8 +31,6 @@ public class Tour {
         this.name = name;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "country_id")
     public Country getCountry() {
         return country;
     }
@@ -49,8 +39,6 @@ public class Tour {
         this.country = country;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "hotel_id")
     public Hotel getHotel() {
         return hotel;
     }
@@ -59,8 +47,6 @@ public class Tour {
         this.hotel = hotel;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "review_id")
     public Review getReview() {
         return review;
     }
@@ -69,12 +55,11 @@ public class Tour {
         this.review = review;
     }
 
-    @OneToMany(mappedBy = "tour",cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 
